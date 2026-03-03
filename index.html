@@ -20,10 +20,8 @@
     .cursor-ring { position:fixed; width:36px; height:36px; border:1px solid rgba(230,57,70,.4); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:all .18s ease; }
     body:has(a:hover) .cursor { width:18px; height:18px; background:var(--amber); }
     body:has(a:hover) .cursor-ring { width:54px; height:54px; border-color:rgba(244,162,97,.5); }
-    body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:1; opacity:.3; }
     nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center; padding:1.2rem 3rem; background:rgba(10,10,15,.85); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
     .nav-logo { display:flex; align-items:center; gap:.6rem; text-decoration:none; }
-    .nav-logo img { width:36px; height:36px; border-radius:4px; object-fit:cover; }
     .nav-logo-text { font-family:'Syne',sans-serif; font-weight:800; font-size:1.05rem; color:var(--text); }
     .nav-logo-text span { color:var(--red); }
     .nav-links { display:flex; gap:2rem; list-style:none; }
@@ -162,7 +160,6 @@
 
   <nav>
     <a href="#" class="nav-logo">
-      <img src="rp-logo.png" alt="RP Logo">
       <span class="nav-logo-text">Rajan<span>.</span></span>
     </a>
     <ul class="nav-links">
@@ -182,7 +179,7 @@
         <div class="location-badge reveal"><span class="location-dot"></span>Nawalparasi, Nepal · GMT+5:45</div>
         <p class="hero-tag reveal">Available for collaboration</p>
         <h1 class="reveal reveal-delay-1">Rajan<br><span class="italic">Poudel.</span></h1>
-        <p class="hero-sub reveal reveal-delay-2">BCA student at Lumbini ICT Campus. Building things with code — from blood bank systems to design systems. Obsessed with clean UI and logical problems.</p>
+        <p class="hero-sub reveal reveal-delay-2">Not the loudest in the room — just the one who ships. BCA student at Lumbini ICT Campus. I write code that works, design interfaces that breathe, and debug both until they're right. Currently deep in systems, logic, and the gap between the two.</p>
         <div class="hero-actions reveal reveal-delay-3">
           <a href="#projects" class="btn btn-primary">View Projects →</a>
           <a href="https://github.com/rajan21045" target="_blank" class="btn btn-outline">
