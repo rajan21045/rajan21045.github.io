@@ -235,8 +235,9 @@
       border: 1px solid var(--border);
       cursor: pointer;
       padding: 0;
-      z-index: 200;
+      z-index: 300;
       flex-shrink: 0;
+      position: relative;
     }
 
     .hamburger span {
@@ -246,19 +247,24 @@
       background: var(--text);
       transition: transform .3s ease, opacity .3s ease, width .3s ease;
       transform-origin: center;
+      position: absolute;
     }
 
+    /* Default positions */
+    .hamburger span:nth-child(1) { transform: translateY(-5px); }
+    .hamburger span:nth-child(2) { transform: translateY(0); }
+    .hamburger span:nth-child(3) { transform: translateY(5px); }
+
+    /* Open (X) state */
     .hamburger.open span:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
+      transform: translateY(0) rotate(45deg);
     }
-
     .hamburger.open span:nth-child(2) {
       opacity: 0;
       width: 0;
     }
-
     .hamburger.open span:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
+      transform: translateY(0) rotate(-45deg);
     }
 
     /* ── MOBILE DRAWER ── */
@@ -271,7 +277,7 @@
       bottom: 0;
       background: rgba(10, 10, 15, .97);
       backdrop-filter: blur(24px);
-      z-index: 150;
+      z-index: 200;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -284,11 +290,6 @@
     .mobile-menu.open {
       opacity: 1;
       pointer-events: all;
-    }
-
-    .mobile-menu nav-mobile-links {
-      display: flex;
-      flex-direction: column;
     }
 
     .mobile-nav-link {
@@ -517,7 +518,6 @@
       pointer-events: none;
     }
 
-    /* photo scan line */
     .hero-photo-frame::before {
       content: '';
       position: absolute;
@@ -735,7 +735,6 @@
       margin-bottom: 3rem;
     }
 
-    /* marquee rows */
     .marquee-row {
       display: flex;
       overflow: hidden;
@@ -1358,19 +1357,19 @@
     <div>
       <div class="about-stats reveal">
         <div class="stat">
-          <div class="stat-num">27+</div>
+          <div class="stat-num" data-target="27" data-suffix="+">27+</div>
           <div class="stat-label">GitHub Repos</div>
         </div>
         <div class="stat">
-          <div class="stat-num">3+</div>
+          <div class="stat-num" data-target="3" data-suffix="+">3+</div>
           <div class="stat-label">Coding Platforms</div>
         </div>
         <div class="stat">
-          <div class="stat-num">8+</div>
+          <div class="stat-num" data-target="8" data-suffix="+">8+</div>
           <div class="stat-label">Languages</div>
         </div>
         <div class="stat">
-          <div class="stat-num">4+</div>
+          <div class="stat-num" data-target="4" data-suffix="+">4+</div>
           <div class="stat-label">Design Tools</div>
         </div>
       </div>
@@ -1395,7 +1394,6 @@
             <div class="skill-chip"><div class="skill-icon">💙</div><div class="skill-name">Flutter</div></div>
             <div class="skill-chip"><div class="skill-icon">🎯</div><div class="skill-name">Dart</div></div>
             <div class="skill-chip"><div class="skill-icon">🗄️</div><div class="skill-name">MySQL</div></div>
-            <!-- duplicate for seamless loop -->
             <div class="skill-chip"><div class="skill-icon">🌐</div><div class="skill-name">HTML5</div></div>
             <div class="skill-chip"><div class="skill-icon">🎨</div><div class="skill-name">CSS3</div></div>
             <div class="skill-chip"><div class="skill-icon">⚡</div><div class="skill-name">JavaScript</div></div>
@@ -1420,7 +1418,6 @@
             <div class="skill-chip"><div class="skill-icon">🐙</div><div class="skill-name">Git / GitHub</div></div>
             <div class="skill-chip"><div class="skill-icon">🧩</div><div class="skill-name">DSA</div></div>
             <div class="skill-chip"><div class="skill-icon">🗃️</div><div class="skill-name">SQL</div></div>
-            <!-- duplicate for seamless loop -->
             <div class="skill-chip"><div class="skill-icon">🅱️</div><div class="skill-name">Bootstrap</div></div>
             <div class="skill-chip"><div class="skill-icon">✏️</div><div class="skill-name">Figma</div></div>
             <div class="skill-chip"><div class="skill-icon">🖌️</div><div class="skill-name">Adobe XD</div></div>
@@ -1594,18 +1591,16 @@
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('loader').classList.add('hidden');
-        // trigger hero reveals after loader hides
         document.querySelectorAll('.hero .reveal').forEach((el, i) => {
           setTimeout(() => el.classList.add('visible'), 100 + i * 120);
         });
-        // scramble on load
         setTimeout(() => {
           document.querySelectorAll('.hero .scramble').forEach(el => scramble(el));
         }, 150);
       }, 1000);
     });
 
-    // Custom cursor
+    // ── CUSTOM CURSOR ──
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
     document.addEventListener('mousemove', e => {
@@ -1617,17 +1612,13 @@
       }, 60);
     });
 
-    // Hamburger menu
+    // ── HAMBURGER MENU ──
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
 
     hamburger.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.contains('open');
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      isOpen ? closeMenu() : openMenu();
     });
 
     function openMenu() {
@@ -1642,20 +1633,29 @@
       document.body.style.overflow = '';
     }
 
-    // Close on Escape key
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeMenu();
     });
 
-    // Scroll reveal
+    // ── SCROLL REVEAL ──
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          // Trigger stat scramble when stats section becomes visible
+          if (e.target.classList.contains('about-stats')) {
+            setTimeout(() => animateStats(), 200);
+          }
+        }
+      });
+    }, { threshold: 0.15 });
     reveals.forEach(el => observer.observe(el));
 
     // ── SCRAMBLE TEXT ──
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%';
+    const DIGITS = '0123456789';
+
     function scramble(el) {
       const original = el.dataset.text;
       if (!original) return;
@@ -1676,6 +1676,42 @@
     document.querySelectorAll('.scramble').forEach(el => {
       el.addEventListener('mouseenter', () => scramble(el));
     });
+
+    // ── STAT NUMBER SCRAMBLE ──
+    let statsAnimated = false;
+
+    function animateStats() {
+      if (statsAnimated) return;
+      statsAnimated = true;
+
+      document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        const duration = 900;
+        const fps = 40;
+        const totalFrames = Math.round(duration / (1000 / fps));
+        let frame = 0;
+
+        const interval = setInterval(() => {
+          frame++;
+          const progress = frame / totalFrames;
+
+          if (frame < totalFrames) {
+            // Scramble phase: show random digits, gradually resolve left-to-right
+            const resolvedChars = Math.floor(progress * String(target).length);
+            const targetStr = String(target);
+            const scrambled = targetStr.split('').map((ch, i) => {
+              if (i < resolvedChars) return ch;
+              return DIGITS[Math.floor(Math.random() * DIGITS.length)];
+            }).join('');
+            el.textContent = scrambled + suffix;
+          } else {
+            el.textContent = target + suffix;
+            clearInterval(interval);
+          }
+        }, 1000 / fps);
+      });
+    }
   </script>
 </body>
 
