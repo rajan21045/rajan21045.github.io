@@ -32,6 +32,7 @@
       --text: #e8e6f0;
       --muted: #7a7890;
       --faint: #2a2838;
+      --nav-bg: rgba(10, 10, 15, 0.75);
       --invert-img: brightness(1.8) contrast(1.1) saturate(0.8);
       --logo-hover: brightness(2.2) contrast(1.1) saturate(1);
       --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -49,6 +50,7 @@
       --text: #000000;
       --muted: #495057;
       --faint: #e9ecef;
+      --nav-bg: rgba(248, 249, 250, 0.8);
       --invert-img: brightness(1) contrast(1.05) saturate(0.9);
       --logo-hover: brightness(0.8) contrast(1.2);
     }
@@ -163,7 +165,7 @@
       color: var(--muted);
     }
 
-    /* ── NAV ── */
+    /* ── ULTRA-PREMIUM NAV ── */
     nav {
       position: fixed;
       top: 0;
@@ -173,10 +175,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.2rem 3rem;
-      background: var(--bg);
+      padding: 1rem 3rem;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      transition: background var(--transition), border-color var(--transition);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background var(--transition), border-color var(--transition);
+    }
+
+    /* Smart Scroll Utilities */
+    nav.nav-hidden {
+      transform: translateY(-100%);
     }
 
     .nav-logo {
@@ -187,8 +196,8 @@
     }
 
     .nav-logo img {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 6px;
       object-fit: cover;
       filter: var(--invert-img);
@@ -211,23 +220,49 @@
       color: var(--red);
     }
 
+    .nav-right-cluster {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 1.8rem;
       list-style: none;
     }
 
     .nav-links a {
       font-size: .72rem;
-      letter-spacing: .12em;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
+      position: relative;
+      padding: 0.4rem 0;
       transition: color .2s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .nav-links a:hover {
       color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
     }
 
     /* ── THEME SWITCHER TOGGLE ── */
@@ -245,8 +280,6 @@
       align-items: center;
       gap: 0.4rem;
       transition: var(--transition);
-      margin-left: auto;
-      margin-right: 1.5rem;
     }
 
     .theme-toggle:hover {
@@ -819,6 +852,12 @@
     .scramble { display: inline; }
 
     /* ── RESPONSIVE OVERLAYS ── */
+    @media(max-width:960px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .nav-right-cluster { gap: 1.2rem; }
+    }
+
     @media(max-width:900px) {
       .hero { grid-template-columns: 1fr; }
       .hero-photo-wrap { display: none; }
@@ -829,10 +868,7 @@
     }
 
     @media(max-width:768px) {
-      nav { padding: 1.2rem 1.5rem; }
-      .nav-links { display: none; }
-      .theme-toggle { margin-right: 1rem; }
-      .nav-hire { display: none; }
+      .nav-right-cluster { display: none; }
       .hamburger { display: flex; }
       .mobile-menu { display: flex; }
       .hero, .about, .skills-inner, .projects-section, .coding-section, .connect-section, .timeline-section { padding-left: 1.5rem; padding-right: 1.5rem; }
@@ -865,25 +901,29 @@
     <a href="mailto:raajan.works@gmail.com" class="mobile-hire" onclick="closeMenu()">Hire Me</a>
   </div>
 
-  <nav>
+  <nav id="mainNavbar">
     <a href="#" class="nav-logo">
       <img src="rp-logo.png" alt="RP Logo">
       <span class="nav-logo-text">Rajan<span>.</span></span>
     </a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#coding">Coding</a></li>
-      <li><a href="#connect">Connect</a></li>
-    </ul>
+    
+    <div class="nav-right-cluster">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#coding">Coding</a></li>
+        <li><a href="#connect">Connect</a></li>
+      </ul>
 
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <span id="themeIcon">☀</span> <span id="themeText">Light</span>
-    </button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">☀</span> <span id="themeText">Light</span>
+      </button>
 
-    <a href="mailto:raajan.works@gmail.com" class="nav-hire">Hire Me</a>
+      <a href="mailto:raajan.works@gmail.com" class="nav-hire">Hire Me</a>
+    </div>
+
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span>
       <span></span>
@@ -1164,7 +1204,6 @@
     const themeIcon = document.getElementById('themeIcon');
     const themeText = document.getElementById('themeText');
 
-    // Get explicit saved preference OR default intelligently to user system settings
     const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     const defaultTheme = systemPrefersLight ? 'light' : 'dark';
     const savedTheme = localStorage.getItem('portfolio-theme') || defaultTheme;
@@ -1190,6 +1229,21 @@
         themeText.textContent = 'Light';
       }
     }
+
+    // ── SMART NAV SHOW/HIDE ON SCROLL ──
+    const navbar = document.getElementById('mainNavbar');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > lastScrollY && window.scrollY > 150) {
+        // Scrolling down - hide navbar
+        navbar.classList.add('nav-hidden');
+      } else {
+        // Scrolling up - show navbar
+        navbar.classList.remove('nav-hidden');
+      }
+      lastScrollY = window.scrollY;
+    });
 
     // ── LOADER INITIALIZATION ──
     window.addEventListener('load', () => {
