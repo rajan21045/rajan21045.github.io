@@ -34,6 +34,7 @@
       --faint: #2a2838;
       --invert-img: brightness(1.8) contrast(1.1) saturate(0.8);
       --logo-hover: brightness(2.2) contrast(1.1) saturate(1);
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* ── STARK BRUTALIST LIGHT MODE ── */
@@ -62,6 +63,7 @@
       font-family: 'DM Mono', monospace;
       overflow-x: hidden;
       cursor: none;
+      transition: background var(--transition), color var(--transition);
     }
 
     /* ── GRAIN OVERLAY ── */
@@ -79,41 +81,41 @@
 
     .cursor {
       position: fixed;
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       background: var(--red);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      transition: width .3s, height .3s, background .3s;
+      transition: width 0.2s, height 0.2s, background 0.2s;
       mix-blend-mode: difference;
     }
 
     .cursor-ring {
       position: fixed;
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(230, 57, 70, .4);
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--red);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9998;
       transform: translate(-50%, -50%);
-      transition: all .18s ease;
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
     }
 
     body:has(a:hover) .cursor,
     body:has(button:hover) .cursor {
-      width: 18px;
-      height: 18px;
+      width: 14px;
+      height: 14px;
       background: var(--amber);
     }
 
     body:has(a:hover) .cursor-ring,
     body:has(button:hover) .cursor-ring {
-      width: 54px;
-      height: 54px;
-      border-color: rgba(244, 162, 97, .5);
+      width: 48px;
+      height: 48px;
+      border-color: var(--amber);
     }
 
     /* ── LOADER ── */
@@ -173,9 +175,8 @@
       align-items: center;
       padding: 1.2rem 3rem;
       background: var(--bg);
-      opacity: 0.98;
-      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
     }
 
     .nav-logo {
@@ -243,14 +244,14 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: all 0.2s;
+      transition: var(--transition);
       margin-left: auto;
       margin-right: 1.5rem;
     }
 
     .theme-toggle:hover {
       background: var(--faint);
-      border-color: var(--muted);
+      border-color: var(--text);
     }
 
     .nav-hire {
@@ -261,7 +262,7 @@
       text-decoration: none;
       border: 1px solid var(--red-dim);
       padding: .4rem .9rem;
-      transition: all .2s;
+      transition: var(--transition);
     }
 
     .nav-hire:hover {
@@ -301,16 +302,9 @@
     .hamburger span:nth-child(2) { transform: translateY(0); }
     .hamburger span:nth-child(3) { transform: translateY(5px); }
 
-    .hamburger.open span:nth-child(1) {
-      transform: translateY(0) rotate(45deg);
-    }
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-      width: 0;
-    }
-    .hamburger.open span:nth-child(3) {
-      transform: translateY(0) rotate(-45deg);
-    }
+    .hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
 
     /* ── MOBILE DRAWER ── */
     .mobile-menu {
@@ -391,28 +385,10 @@
       transition: opacity .35s .4s, transform .35s .4s, background .2s;
     }
 
-    .mobile-menu.open .mobile-hire {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .mobile-hire:hover {
-      background: var(--red);
-      color: white;
-    }
-
-    .mobile-divider {
-      width: 40px;
-      height: 1px;
-      background: var(--border);
-      margin: 2rem 0;
-      opacity: 0;
-      transition: opacity .35s .38s;
-    }
-
-    .mobile-menu.open .mobile-divider {
-      opacity: 1;
-    }
+    .mobile-menu.open .mobile-hire { opacity: 1; transform: translateY(0); }
+    .mobile-hire:hover { background: var(--red); color: white; }
+    .mobile-divider { width: 40px; height: 1px; background: var(--border); margin: 2rem 0; opacity: 0; transition: opacity .35s .38s; }
+    .mobile-menu.open .mobile-divider { opacity: 1; }
 
     /* ── SECTIONS ── */
     section {
@@ -551,9 +527,7 @@
       transition: filter .4s;
     }
 
-    .hero-photo-frame:hover img {
-      filter: grayscale(0%) contrast(1);
-    }
+    .hero-photo-frame:hover img { filter: grayscale(0%) contrast(1); }
 
     .hero-photo-frame::after {
       content: '';
@@ -595,20 +569,8 @@
       z-index: 3;
     }
 
-    .hero-photo-label .name-tag {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: .95rem;
-      color: white;
-    }
-
-    .hero-photo-label .role-tag {
-      font-size: .65rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-top: .2rem;
-    }
+    .hero-photo-label .name-tag { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; color: white; }
+    .hero-photo-label .role-tag { font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); margin-top: .2rem; }
 
     .btn {
       display: inline-flex;
@@ -622,7 +584,7 @@
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: all .25s;
+      transition: var(--transition);
     }
 
     .btn-primary {
@@ -645,7 +607,7 @@
     }
 
     .btn-outline:hover {
-      border-color: var(--muted);
+      border-color: var(--text);
       transform: translateY(-2px);
       background: var(--faint);
     }
@@ -665,20 +627,9 @@
       animation: ticker 30s linear infinite;
     }
 
-    .ticker span {
-      font-size: .68rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-
+    .ticker span { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; }
     .ticker span.accent { color: var(--red); }
-
-    @keyframes ticker {
-      from { transform: translateX(0) }
-      to { transform: translateX(-50%) }
-    }
+    @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
 
     .about {
       padding: 7rem 3rem;
@@ -690,29 +641,9 @@
       align-items: center;
     }
 
-    .section-label {
-      font-size: .68rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 1.2rem;
-    }
-
-    .about-text h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      line-height: 1.1;
-      letter-spacing: -.03em;
-      margin-bottom: 1.5rem;
-    }
-
-    .about-text p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: .88rem;
-      margin-bottom: 1rem;
-    }
+    .section-label { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--red); margin-bottom: 1.2rem; }
+    .about-text h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(1.8rem, 3.5vw, 2.6rem); line-height: 1.1; letter-spacing: -.03em; margin-bottom: 1.5rem; }
+    .about-text p { color: var(--muted); line-height: 1.8; font-size: .88rem; margin-bottom: 1rem; }
 
     .about-stats {
       display: grid;
@@ -727,6 +658,7 @@
       padding: 1.8rem;
       position: relative;
       overflow: hidden;
+      transition: background var(--transition);
     }
 
     .stat::before {
@@ -752,52 +684,15 @@
       line-height: 1;
     }
 
-    .stat-label {
-      font-size: .68rem;
-      color: var(--muted);
-      margin-top: .3rem;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-    }
+    .stat-label { font-size: .68rem; color: var(--muted); margin-top: .3rem; text-transform: uppercase; letter-spacing: .1em; }
+    .skills-section { padding: 7rem 0; background: var(--surface); overflow: hidden; }
+    .skills-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+    .skills-section h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.03em; margin-bottom: 3rem; }
 
-    .skills-section {
-      padding: 7rem 0;
-      background: var(--surface);
-      overflow: hidden;
-    }
-
-    .skills-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 3rem;
-    }
-
-    .skills-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: -.03em;
-      margin-bottom: 3rem;
-    }
-
-    .marquee-row {
-      display: flex;
-      overflow: hidden;
-      margin-bottom: 1px;
-    }
-    .marquee-track {
-      display: flex;
-      gap: 1px;
-      flex-shrink: 0;
-      animation: marquee-fwd 28s linear infinite;
-    }
-    .marquee-row.rev .marquee-track {
-      animation-name: marquee-rev;
-      animation-duration: 34s;
-    }
-    .marquee-row:hover .marquee-track {
-      animation-play-state: paused;
-    }
+    .marquee-row { display: flex; overflow: hidden; margin-bottom: 1px; }
+    .marquee-track { display: flex; gap: 1px; flex-shrink: 0; animation: marquee-fwd 28s linear infinite; }
+    .marquee-row.rev .marquee-track { animation-name: marquee-rev; animation-duration: 34s; }
+    .marquee-row:hover .marquee-track { animation-play-state: paused; }
     @keyframes marquee-fwd { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes marquee-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
@@ -809,58 +704,21 @@
       flex-direction: column;
       align-items: center;
       gap: .5rem;
-      transition: background .2s;
+      transition: background .2s, border-color .2s;
       text-align: center;
       min-width: 120px;
       flex-shrink: 0;
     }
 
-    .skill-chip:hover { background: var(--faint); }
-
+    .skill-chip:hover { background: var(--faint); border-color: var(--muted); }
     .skill-icon { font-size: 1.5rem; }
+    .skill-name { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
-    .skill-name {
-      font-size: .68rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .timeline-section {
-      padding: 7rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .timeline-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: -.03em;
-      margin-bottom: 3rem;
-    }
-
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-bottom: 3rem;
-      padding-left: 2rem;
-    }
-
+    .timeline-section { padding: 7rem 3rem; max-width: 1200px; margin: 0 auto; }
+    .timeline-section h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.03em; margin-bottom: 3rem; }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border); }
+    .timeline-item { position: relative; padding-bottom: 3rem; padding-left: 2rem; }
     .timeline-item:last-child { padding-bottom: 0; }
 
     .timeline-dot {
@@ -875,62 +733,16 @@
       transform: translateX(-4px);
     }
 
-    .timeline-dot.dim {
-      background: var(--faint);
-      border: 1px solid var(--muted);
-      box-shadow: none;
-    }
+    .timeline-dot.dim { background: var(--faint); border: 1px solid var(--muted); box-shadow: none; }
+    .timeline-year { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--red); margin-bottom: .4rem; }
+    .timeline-item h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: .3rem; }
+    .timeline-item .place { font-size: .78rem; color: var(--amber); margin-bottom: .5rem; }
+    .timeline-item p { font-size: .82rem; color: var(--muted); line-height: 1.7; }
 
-    .timeline-year {
-      font-size: .65rem;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: .4rem;
-    }
-
-    .timeline-item h3 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: .3rem;
-    }
-
-    .timeline-item .place {
-      font-size: .78rem;
-      color: var(--amber);
-      margin-bottom: .5rem;
-    }
-
-    .timeline-item p {
-      font-size: .82rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .projects-section {
-      padding: 7rem 3rem;
-      background: var(--surface);
-    }
-
-    .projects-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .projects-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: -.03em;
-      margin-bottom: 3rem;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5rem;
-    }
+    .projects-section { padding: 7rem 3rem; background: var(--surface); }
+    .projects-inner { max-width: 1200px; margin: 0 auto; }
+    .projects-section h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.03em; margin-bottom: 3rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
 
     .project-card {
       background: var(--card);
@@ -938,7 +750,7 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
-      transition: border-color .3s, transform .3s;
+      transition: border-color .3s, transform .3s, background .3s;
       clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
     }
 
@@ -951,329 +763,80 @@
       height: 0;
       border-left: 16px solid transparent;
       border-top: 16px solid var(--border);
+      transition: border-top-color 0.3s;
     }
 
     .project-card:hover {
-      border-color: var(--red-dim);
+      border-color: var(--red);
       transform: translateY(-4px);
+      background: var(--faint);
     }
 
-    .project-card:hover::after { border-top-color: var(--red-dim); }
-
-    .project-langs {
-      display: flex;
-      gap: .4rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-      align-items: center;
-    }
-
-    .nav-logo-text span {
-      color: var(--red);
-    }
-
-    .lang-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .lang-label {
-      font-size: .65rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .project-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      margin-bottom: .75rem;
-      letter-spacing: -.02em;
-    }
-
-    .project-card p {
-      font-size: .82rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .project-link {
-      font-size: .7rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--red);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      transition: gap .2s;
-    }
-
+    .project-card:hover::after { border-top-color: var(--red); }
+    .project-langs { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+    .lang-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .lang-label { font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .project-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.15rem; margin-bottom: .75rem; letter-spacing: -.02em; }
+    .project-card p { font-size: .82rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .project-link { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--red); text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; transition: gap .2s; }
     .project-link:hover { gap: .7rem; }
 
-    .coding-section {
-      padding: 7rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .coding-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: -.03em;
-      margin-bottom: 3rem;
-    }
-
-    .coding-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-
-    .coding-card {
-      background: var(--card);
-      padding: 2rem;
-      transition: background .2s;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
+    .coding-section { padding: 7rem 3rem; max-width: 1200px; margin: 0 auto; }
+    .coding-section h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.03em; margin-bottom: 3rem; }
+    .coding-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .coding-card { background: var(--card); padding: 2rem; transition: background .2s, border-color .2s; display: flex; flex-direction: column; gap: 1rem; }
     .coding-card:hover { background: var(--faint); }
-
     .coding-icon { font-size: 2rem; }
-
-    .coding-platform {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
-
-    .coding-handle {
-      font-size: .75rem;
-      color: var(--muted);
-    }
-
-    .coding-link {
-      margin-top: auto;
-      font-size: .68rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--red);
-      text-decoration: none;
-    }
-
+    .coding-platform { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; }
+    .coding-handle { font-size: .75rem; color: var(--muted); }
+    .coding-link { margin-top: auto; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--red); text-decoration: none; }
     .coding-link:hover { text-decoration: underline; }
 
-    .connect-section {
-      padding: 7rem 3rem;
-      background: var(--surface);
-    }
+    .connect-section { padding: 7rem 3rem; background: var(--surface); }
+    .connect-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .connect-section h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1; letter-spacing: -.04em; margin-bottom: 1.5rem; }
+    .connect-section h2 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--amber); }
+    .connect-section p { font-size: .85rem; color: var(--muted); line-height: 1.8; }
 
-    .connect-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .connect-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.5rem, 5vw, 3.8rem);
-      line-height: 1;
-      letter-spacing: -.04em;
-      margin-bottom: 1.5rem;
-    }
-
-    .connect-section h2 em {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      color: var(--amber);
-    }
-
-    .connect-section p {
-      font-size: .85rem;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-
-    .social-item {
-      background: var(--card);
-      padding: 1.2rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      text-decoration: none;
-      transition: background .2s;
-    }
-
+    .social-links { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .social-item { background: var(--card); padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; text-decoration: none; transition: background .2s; }
     .social-item:hover { background: var(--faint); }
+    .social-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: .9rem; color: var(--text); }
+    .social-handle { font-size: .72rem; color: var(--muted); }
+    .social-arrow { color: var(--red); font-size: .9rem; }
 
-    .social-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: .9rem;
-      color: var(--text);
-    }
+    footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; font-size: .7rem; color: var(--muted); letter-spacing: .08em; }
+    footer a { color: var(--red); text-decoration: none; }
 
-    .social-handle {
-      font-size: .72rem;
-      color: var(--muted);
-    }
+    .bg-glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(230, 57, 70, .06) 0%, transparent 70%); pointer-events: none; z-index: 0; top: -100px; right: -200px; }
+    .bg-glow2 { position: fixed; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(244, 162, 97, .04) 0%, transparent 70%); pointer-events: none; z-index: 0; bottom: 10%; left: -100px; }
 
-    .social-arrow {
-      color: var(--red);
-      font-size: .9rem;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      font-size: .7rem;
-      color: var(--muted);
-      letter-spacing: .08em;
-    }
-
-    footer a {
-      color: var(--red);
-      text-decoration: none;
-    }
-
-    .bg-glow {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(230, 57, 70, .06) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-      top: -100px;
-      right: -200px;
-    }
-
-    .bg-glow2 {
-      position: fixed;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(244, 162, 97, .04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-      bottom: 10%;
-      left: -100px;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .65s cubic-bezier(0.16, 1, 0.3, 1), transform .65s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: none; }
     .reveal-delay-1 { transition-delay: .1s; }
     .reveal-delay-2 { transition-delay: .2s; }
     .reveal-delay-3 { transition-delay: .3s; }
-
-    /* ── SCRAMBLE ── */
     .scramble { display: inline; }
 
-    /* ── RESPONSIVE ── */
+    /* ── RESPONSIVE OVERLAYS ── */
     @media(max-width:900px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-photo-wrap {
-        display: none;
-      }
-
-      .about {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .coding-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .connect-inner {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
+      .hero { grid-template-columns: 1fr; }
+      .hero-photo-wrap { display: none; }
+      .about { grid-template-columns: 1fr; gap: 3rem; }
+      .coding-grid { grid-template-columns: 1fr; }
+      .connect-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .projects-grid { grid-template-columns: 1fr; }
     }
 
     @media(max-width:768px) {
-      nav {
-        padding: 1.2rem 1.5rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .theme-toggle {
-        margin-right: 1rem;
-      }
-
-      .nav-hire {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .mobile-menu {
-        display: flex;
-      }
-
-      .hero,
-      .about,
-      .skills-inner,
-      .projects-section,
-      .coding-section,
-      .connect-section,
-      .timeline-section {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-
-      footer {
-        flex-direction: column;
-        gap: .5rem;
-        text-align: center;
-      }
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .theme-toggle { margin-right: 1rem; }
+      .nav-hire { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      .hero, .about, .skills-inner, .projects-section, .coding-section, .connect-section, .timeline-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      footer { flex-direction: column; gap: .5rem; text-align: center; }
     }
   </style>
 </head>
@@ -1334,13 +897,11 @@
         <div class="location-badge reveal"><span class="location-dot"></span>Nawalparasi, Nepal · GMT+5:45</div>
         <p class="hero-tag reveal">Available for collaboration</p>
         <h1 class="reveal reveal-delay-1"><span class="scramble" data-text="Rajan">Rajan</span><br><span class="italic scramble" data-text="Poudel.">Poudel.</span></h1>
-        <p class="hero-sub reveal reveal-delay-2">Not the loudest in the room — just the one who ships. BCA student at
-          Lumbini ICT Campus. I write code that works, design interfaces that breathe, and debug both until they're
-          right. Currently deep in systems, logic, and the gap between the two.</p>
+        <p class="hero-sub reveal reveal-delay-2">Not the loudest in the room — just the one who ships. BCA student at Lumbini ICT Campus. I write code that works, design interfaces that breathe, and debug both until they're right.</p>
         <div class="hero-actions reveal reveal-delay-3">
           <a href="#projects" class="btn btn-primary">View Projects →</a>
 
-          <a href="path-to-your-cv.pdf" download="Rajan_Poudel_CV.pdf" class="btn btn-outline" style="gap: 0.6rem;">
+          <a href="Rajan-Poudel-Resume.pdf" download="Rajan-Poudel-Resume.pdf" class="btn btn-outline" style="gap: 0.6rem;">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
@@ -1351,8 +912,7 @@
 
           <a href="https://github.com/rajan21045" target="_blank" class="btn btn-outline">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
             </svg>
             GitHub
           </a>
@@ -1375,50 +935,18 @@
 
   <div class="ticker-wrap">
     <div class="ticker">
-      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span
-        class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span
-        class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span
-        class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span
-        class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span
-        class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span>Bootstrap</span><span
-        class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span
-        class="accent">✦</span>
-      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span
-        class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span
-        class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span
-        class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span
-        class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span
-        class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span class="accent">✦</span><span>Bootstrap</span><span
-        class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span
-        class="accent">✦</span>
+      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span>Bootstrap</span><span class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span class="accent">✦</span>
+      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span>Bootstrap</span><span class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span class="accent">✦</span>
     </div>
   </div>
 
   <section id="about" class="about">
     <div class="about-text">
       <p class="section-label reveal">// About</p>
-      <h2 class="reveal">
-        Developer.<br>
-        Designer.<br>
-        <em style="font-style:italic;color:var(--amber);font-family:'Instrument Serif',serif;">
-          Problem Solver.
-        </em>
-      </h2>
-      <p class="reveal">
-        I'm Rajan Poudel, a BCA student at Lumbini ICT Campus who enjoys building
-        thoughtful digital experiences. My work sits at the intersection of
-        development and design — writing clean code while crafting interfaces
-        that feel simple, intuitive, and human.
-      </p>
-      <p class="reveal">
-        I believe good software starts with clear thinking. I usually design first,
-        then build. This approach helps me focus on usability, structure,
-        and performance rather than just writing code.
-      </p>
-      <p class="reveal">
-        When I'm not coding, you'll probably find me solving Sudoku,
-        exploring new technologies, or refining my UI design skills.
-      </p>
+      <h2 class="reveal">Developer.<br>Designer.<br><em style="font-style:italic;color:var(--amber);font-family:'Instrument Serif',serif;">Problem Solver.</em></h2>
+      <p class="reveal">I'm Rajan Poudel, a BCA student at Lumbini ICT Campus who enjoys building thoughtful digital experiences. My work sits at the intersection of development and design — writing clean code while crafting interfaces that feel simple, intuitive, and human.</p>
+      <p class="reveal">I believe good software starts with clear thinking. I usually design first, then build. This approach helps me focus on usability, structure, and performance rather than just writing code.</p>
+      <p class="reveal">When I'm not coding, you'll probably find me solving Sudoku, exploring new technologies, or refining my UI design skills.</p>
     </div>
     <div>
       <div class="about-stats reveal">
@@ -1463,12 +991,6 @@
             <div class="skill-chip"><div class="skill-icon">🎨</div><div class="skill-name">CSS3</div></div>
             <div class="skill-chip"><div class="skill-icon">⚡</div><div class="skill-name">JavaScript</div></div>
             <div class="skill-chip"><div class="skill-icon">🐘</div><div class="skill-name">PHP</div></div>
-            <div class="skill-chip"><div class="skill-icon">☕</div><div class="skill-name">Java</div></div>
-            <div class="skill-chip"><div class="skill-icon">🐍</div><div class="skill-name">Python</div></div>
-            <div class="skill-chip"><div class="skill-icon">⚙️</div><div class="skill-name">C</div></div>
-            <div class="skill-chip"><div class="skill-icon">💙</div><div class="skill-name">Flutter</div></div>
-            <div class="skill-chip"><div class="skill-icon">🎯</div><div class="skill-name">Dart</div></div>
-            <div class="skill-chip"><div class="skill-icon">🗄️</div><div class="skill-name">MySQL</div></div>
           </div>
         </div>
         <div class="marquee-row rev">
@@ -1485,12 +1007,6 @@
             <div class="skill-chip"><div class="skill-icon">🅱️</div><div class="skill-name">Bootstrap</div></div>
             <div class="skill-chip"><div class="skill-icon">✏️</div><div class="skill-name">Figma</div></div>
             <div class="skill-chip"><div class="skill-icon">🖌️</div><div class="skill-name">Adobe XD</div></div>
-            <div class="skill-chip"><div class="skill-icon">📷</div><div class="skill-name">Photoshop</div></div>
-            <div class="skill-chip"><div class="skill-icon">🎭</div><div class="skill-name">Canva</div></div>
-            <div class="skill-chip"><div class="skill-icon">🔷</div><div class="skill-name">Affinity</div></div>
-            <div class="skill-chip"><div class="skill-icon">🐙</div><div class="skill-name">Git / GitHub</div></div>
-            <div class="skill-chip"><div class="skill-icon">🧩</div><div class="skill-name">DSA</div></div>
-            <div class="skill-chip"><div class="skill-icon">🗃️</div><div class="skill-name">SQL</div></div>
           </div>
         </div>
       </div>
@@ -1506,16 +1022,14 @@
         <div class="timeline-year">2080 B.S. &nbsp;·&nbsp; Present</div>
         <h3>Bachelor of Computer Applications (BCA)</h3>
         <div class="place">Lumbini ICT Campus · Nawalparasi, Nepal</div>
-        <p>Pursuing BCA with a focus on full-stack development, data structures, databases, and software engineering.
-          Building real-world projects including RedTrack alongside coursework.</p>
+        <p>Pursuing BCA with a focus on full-stack development, data structures, databases, and software engineering. Building real-world projects including RedTrack alongside coursework.</p>
       </div>
       <div class="timeline-item reveal reveal-delay-1">
         <div class="timeline-dot"></div>
         <div class="timeline-year">2078 – 2080 B.S.</div>
         <h3>Class 11 &amp; 12 — Management</h3>
         <div class="place">Gaindakot Namuna Secondary School · Nawalparasi, Nepal</div>
-        <p>Completed higher secondary education in the Management stream, building analytical thinking and
-          problem-solving skills before transitioning into tech.</p>
+        <p>Completed higher secondary education in the Management stream, building analytical thinking and problem-solving skills before transitioning into tech.</p>
       </div>
       <div class="timeline-item reveal reveal-delay-2">
         <div class="timeline-dot dim"></div>
@@ -1538,9 +1052,7 @@
             <span class="lang-label">PHP · MySQL · Bootstrap · Khalti · eSewa</span>
           </div>
           <h3>RedTrack — Blood Bank System</h3>
-          <p>Full-stack blood bank management system with admin panel, hospital portal, donor management, blood
-            inventory tracking, and Nepalese payment gateway (Khalti/eSewa) integration. Features transport partner
-            support for blood stock transfers.</p>
+          <p>Full-stack blood bank management system with admin panel, hospital portal, donor management, blood inventory tracking, and Nepalese payment gateway (Khalti/eSewa) integration.</p>
           <a href="https://github.com/rajan21045/RedTrack" target="_blank" class="project-link">View on GitHub →</a>
         </div>
         <div class="project-card reveal reveal-delay-1">
@@ -1549,8 +1061,7 @@
             <span class="lang-label">HTML · CSS</span>
           </div>
           <h3>Food Ordering System</h3>
-          <p>A responsive front-end food delivery UI with clean layout and intuitive user experience, built entirely
-            with HTML &amp; CSS. Focuses on component design and visual hierarchy.</p>
+          <p>A responsive front-end food delivery UI with clean layout and intuitive user experience, built entirely with HTML &amp; CSS. Focuses on component design and visual hierarchy.</p>
           <a href="https://github.com/rajan21045/Food-Ordering-System" target="_blank" class="project-link">View on GitHub →</a>
         </div>
         <div class="project-card reveal reveal-delay-2">
@@ -1559,10 +1070,8 @@
             <span class="lang-label">Java · MySQL · Swing</span>
           </div>
           <h3>Book Management App</h3>
-          <p>A desktop application built with Java Swing and MySQL. Features full CRUD operations for managing a book
-            library with a clean, functional GUI interface.</p>
-          <a href="https://github.com/rajan21045/Java-Swing-Book-Management-Application" target="_blank"
-            class="project-link">View on GitHub →</a>
+          <p>A desktop application built with Java Swing and MySQL. Features full CRUD operations for managing a book library with a clean, functional GUI interface.</p>
+          <a href="https://github.com/rajan21045/Java-Swing-Book-Management-Application" target="_blank" class="project-link">View on GitHub →</a>
         </div>
       </div>
     </div>
@@ -1598,8 +1107,7 @@
       <div>
         <p class="section-label reveal">// Contact</p>
         <h2 class="reveal">Let's<br><em>build</em><br>together.</h2>
-        <p class="reveal">Open to collaborations, freelance projects, and new opportunities. Reach out on any platform —
-          I respond promptly.</p>
+        <p class="reveal">Open to collaborations, freelance projects, and new opportunities. Reach out on any platform — I respond promptly.</p>
       </div>
       <div>
         <div class="social-links reveal">
@@ -1651,12 +1159,16 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ── THEME SWITCHER persistence LOGIC ──
+    // ── INTERACTIVE SYSTEM-READY THEME CONTROLLER ──
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const themeText = document.getElementById('themeText');
 
-    const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    // Get explicit saved preference OR default intelligently to user system settings
+    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const defaultTheme = systemPrefersLight ? 'light' : 'dark';
+    const savedTheme = localStorage.getItem('portfolio-theme') || defaultTheme;
+    
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateToggleUI(savedTheme);
 
@@ -1679,7 +1191,7 @@
       }
     }
 
-    // ── LOADER ──
+    // ── LOADER INITIALIZATION ──
     window.addEventListener('load', () => {
       setTimeout(() => {
         document.getElementById('loader').classList.add('hidden');
@@ -1692,25 +1204,21 @@
       }, 1000);
     });
 
-    // ── CUSTOM CURSOR ──
+    // ── HIGH-PERFORMANCE CURSOR TRACKER ──
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
+    
     document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      setTimeout(() => {
-        ring.style.left = e.clientX + 'px';
-        ring.style.top = e.clientY + 'px';
-      }, 60);
+      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      ring.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
     });
 
-    // ── HAMBURGER MENU ──
+    // ── MOBILE MENU SYSTEM ──
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
 
     hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.contains('open');
-      isOpen ? closeMenu() : openMenu();
+      mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
     });
 
     function openMenu() {
@@ -1725,11 +1233,9 @@
       document.body.style.overflow = '';
     }
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeMenu();
-    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
 
-    // ── SCROLL REVEAL ──
+    // ── SCROLL-DRIVEN REVEAL OBSERVER ──
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -1740,10 +1246,10 @@
           }
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // ── SCRAMBLE TEXT ──
+    // ── KINETIC TEXT SCRAMBLER ──
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%';
     const DIGITS = '0123456789';
 
@@ -1760,16 +1266,15 @@
         }).join('');
         frame++;
         if (frame > totalFrames) { el.textContent = original; clearInterval(interval); }
-      }, 35);
+      }, 30);
     }
 
     document.querySelectorAll('.scramble').forEach(el => {
       el.addEventListener('mouseenter', () => scramble(el));
     });
 
-    // ── STAT NUMBER SCRAMBLE ──
+    // ── STAT NUMERICAL ANIMATION ──
     let statsAnimated = false;
-
     function animateStats() {
       if (statsAnimated) return;
       statsAnimated = true;
@@ -1777,8 +1282,8 @@
       document.querySelectorAll('.stat-num[data-target]').forEach(el => {
         const target = parseInt(el.dataset.target);
         const suffix = el.dataset.suffix || '';
-        const duration = 900;
-        const fps = 40;
+        const duration = 1000;
+        const fps = 60;
         const totalFrames = Math.round(duration / (1000 / fps));
         let frame = 0;
 
@@ -1803,5 +1308,4 @@
     }
   </script>
 </body>
-
 </html>
