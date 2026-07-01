@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rajan Poudel — Developer &amp; UI/UX Designer</title>
+  <title>Rajan Poudel — Developer & UI/UX Designer</title>
   <link rel="icon" type="image/png" href="rp-logo.png" sizes="32x32">
   <link rel="apple-touch-icon" href="rp-logo.png" sizes="180x180">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet">
   <style>
     *,
     *::before,
@@ -31,6 +32,24 @@
       --text: #e8e6f0;
       --muted: #7a7890;
       --faint: #2a2838;
+      --invert-img: brightness(1.8) contrast(1.1) saturate(0.8);
+      --logo-hover: brightness(2.2) contrast(1.1) saturate(1);
+    }
+
+    /* ── STARK BRUTALIST LIGHT MODE ── */
+    [data-theme="light"] {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --card: #f1f3f5;
+      --border: #000000;
+      --red: #e63946;
+      --red-dim: #ffccd5;
+      --amber: #d97706;
+      --text: #000000;
+      --muted: #495057;
+      --faint: #e9ecef;
+      --invert-img: brightness(1) contrast(1.05) saturate(0.9);
+      --logo-hover: brightness(0.8) contrast(1.2);
     }
 
     html {
@@ -42,16 +61,7 @@
       color: var(--text);
       font-family: 'DM Mono', monospace;
       overflow-x: hidden;
-    }
-
-    /* Enable custom cursor only on desktop devices that support hover */
-    @media (hover: hover) and (pointer: fine) {
-      body {
-        cursor: none;
-      }
-      .cursor, .cursor-ring {
-        display: block;
-      }
+      cursor: none;
     }
 
     /* ── GRAIN OVERLAY ── */
@@ -68,7 +78,6 @@
     }
 
     .cursor {
-      display: none;
       position: fixed;
       width: 10px;
       height: 10px;
@@ -78,11 +87,10 @@
       z-index: 9999;
       transform: translate(-50%, -50%);
       transition: width .3s, height .3s, background .3s;
-      mix-blend-mode: screen;
+      mix-blend-mode: difference;
     }
 
     .cursor-ring {
-      display: none;
       position: fixed;
       width: 36px;
       height: 36px;
@@ -91,16 +99,18 @@
       pointer-events: none;
       z-index: 9998;
       transform: translate(-50%, -50%);
-      transition: all .12s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: all .18s ease;
     }
 
-    body:has(a:hover, button:hover, .social-item:hover) .cursor {
+    body:has(a:hover) .cursor,
+    body:has(button:hover) .cursor {
       width: 18px;
       height: 18px;
       background: var(--amber);
     }
 
-    body:has(a:hover, button:hover, .social-item:hover) .cursor-ring {
+    body:has(a:hover) .cursor-ring,
+    body:has(button:hover) .cursor-ring {
       width: 54px;
       height: 54px;
       border-color: rgba(244, 162, 97, .5);
@@ -115,7 +125,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity .5s cubic-bezier(0.77, 0, 0.175, 1), visibility .5s;
+      transition: opacity .6s ease, visibility .6s ease;
     }
     #loader.hidden {
       opacity: 0;
@@ -141,7 +151,7 @@
       width: 100%;
       height: 100%;
       background: var(--red);
-      animation: loadbar 1.2s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+      animation: loadbar .9s ease forwards;
     }
     @keyframes loadbar { to { left: 0; } }
     .loader-text {
@@ -162,9 +172,9 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.2rem 3rem;
-      background: rgba(10, 10, 15, .85);
+      background: var(--bg);
+      opacity: 0.98;
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -180,13 +190,13 @@
       height: 36px;
       border-radius: 6px;
       object-fit: cover;
-      filter: brightness(1.8) contrast(1.1) saturate(0.8);
+      filter: var(--invert-img);
       border: 1px solid rgba(255, 255, 255, 0.08);
       transition: filter .3s;
     }
 
     .nav-logo:hover img {
-      filter: brightness(2.2) contrast(1.1) saturate(1);
+      filter: var(--logo-hover);
     }
 
     .nav-logo-text {
@@ -217,6 +227,30 @@
 
     .nav-links a:hover {
       color: var(--text);
+    }
+
+    /* ── THEME SWITCHER TOGGLE ── */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+      margin-left: auto;
+      margin-right: 1.5rem;
+    }
+
+    .theme-toggle:hover {
+      background: var(--faint);
+      border-color: var(--muted);
     }
 
     .nav-hire {
@@ -267,9 +301,16 @@
     .hamburger span:nth-child(2) { transform: translateY(0); }
     .hamburger span:nth-child(3) { transform: translateY(5px); }
 
-    .hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(0) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(0) rotate(-45deg);
+    }
 
     /* ── MOBILE DRAWER ── */
     .mobile-menu {
@@ -279,13 +320,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(10, 10, 15, .97);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: var(--bg);
+      opacity: 0.99;
       z-index: 200;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 0;
       opacity: 0;
       pointer-events: none;
       transition: opacity .3s ease;
@@ -306,7 +347,7 @@
       padding: .6rem 0;
       display: block;
       text-align: center;
-      transition: color .2s, transform .3s ease;
+      transition: color .2s, transform .2s;
       transform: translateY(20px);
       opacity: 0;
     }
@@ -622,7 +663,6 @@
       gap: 3rem;
       white-space: nowrap;
       animation: ticker 30s linear infinite;
-      width: max-content;
     }
 
     .ticker span {
@@ -928,6 +968,10 @@
       align-items: center;
     }
 
+    .nav-logo-text span {
+      color: var(--red);
+    }
+
     .lang-dot {
       width: 8px;
       height: 8px;
@@ -1145,7 +1189,7 @@
     .reveal {
       opacity: 0;
       transform: translateY(24px);
-      transition: opacity .65s cubic-bezier(0.215, 0.61, 0.355, 1), transform .65s cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition: opacity .65s ease, transform .65s ease;
     }
 
     .reveal.visible {
@@ -1157,6 +1201,7 @@
     .reveal-delay-2 { transition-delay: .2s; }
     .reveal-delay-3 { transition-delay: .3s; }
 
+    /* ── SCRAMBLE ── */
     .scramble { display: inline; }
 
     /* ── RESPONSIVE ── */
@@ -1193,11 +1238,23 @@
         padding: 1.2rem 1.5rem;
       }
 
-      .nav-links, .nav-hire {
+      .nav-links {
         display: none;
       }
 
-      .hamburger, .mobile-menu {
+      .theme-toggle {
+        margin-right: 1rem;
+      }
+
+      .nav-hire {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-menu {
         display: flex;
       }
 
@@ -1222,7 +1279,6 @@
 </head>
 
 <body>
-  <!-- Loading screen -->
   <div id="loader">
     <div class="loader-inner">
       <div class="loader-bar"></div>
@@ -1235,14 +1291,13 @@
   <div class="bg-glow"></div>
   <div class="bg-glow2"></div>
 
-  <!-- Mobile full-screen menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#about" class="mobile-nav-link" onclick="closeMenu()"><span>01</span>About</a>
-    <a href="#skills" class="mobile-nav-link" onclick="closeMenu()"><span>02</span>Skills</a>
-    <a href="#education" class="mobile-nav-link" onclick="closeMenu()"><span>03</span>Education</a>
+    <a href="#about"    class="mobile-nav-link" onclick="closeMenu()"><span>01</span>About</a>
+    <a href="#skills"   class="mobile-nav-link" onclick="closeMenu()"><span>02</span>Skills</a>
+    <a href="#education"class="mobile-nav-link" onclick="closeMenu()"><span>03</span>Education</a>
     <a href="#projects" class="mobile-nav-link" onclick="closeMenu()"><span>04</span>Projects</a>
-    <a href="#coding" class="mobile-nav-link" onclick="closeMenu()"><span>05</span>Coding</a>
-    <a href="#connect" class="mobile-nav-link" onclick="closeMenu()"><span>06</span>Connect</a>
+    <a href="#coding"   class="mobile-nav-link" onclick="closeMenu()"><span>05</span>Coding</a>
+    <a href="#connect"  class="mobile-nav-link" onclick="closeMenu()"><span>06</span>Connect</a>
     <div class="mobile-divider"></div>
     <a href="mailto:raajan.works@gmail.com" class="mobile-hire" onclick="closeMenu()">Hire Me</a>
   </div>
@@ -1260,6 +1315,11 @@
       <li><a href="#coding">Coding</a></li>
       <li><a href="#connect">Connect</a></li>
     </ul>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span id="themeIcon">☀</span> <span id="themeText">Light</span>
+    </button>
+
     <a href="mailto:raajan.works@gmail.com" class="nav-hire">Hire Me</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span>
@@ -1274,12 +1334,25 @@
         <div class="location-badge reveal"><span class="location-dot"></span>Nawalparasi, Nepal · GMT+5:45</div>
         <p class="hero-tag reveal">Available for collaboration</p>
         <h1 class="reveal reveal-delay-1"><span class="scramble" data-text="Rajan">Rajan</span><br><span class="italic scramble" data-text="Poudel.">Poudel.</span></h1>
-        <p class="hero-sub reveal reveal-delay-2">Not the loudest in the room — just the one who ships. BCA student at Lumbini ICT Campus. I write code that works, design interfaces that breathe, and debug both until they're right. Currently deep in systems, logic, and the gap between the two.</p>
+        <p class="hero-sub reveal reveal-delay-2">Not the loudest in the room — just the one who ships. BCA student at
+          Lumbini ICT Campus. I write code that works, design interfaces that breathe, and debug both until they're
+          right. Currently deep in systems, logic, and the gap between the two.</p>
         <div class="hero-actions reveal reveal-delay-3">
           <a href="#projects" class="btn btn-primary">View Projects →</a>
+
+          <a href="path-to-your-cv.pdf" download="Rajan_Poudel_CV.pdf" class="btn btn-outline" style="gap: 0.6rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download CV
+          </a>
+
           <a href="https://github.com/rajan21045" target="_blank" class="btn btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
             </svg>
             GitHub
           </a>
@@ -1302,8 +1375,22 @@
 
   <div class="ticker-wrap">
     <div class="ticker">
-      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span>Bootstrap</span><span class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span class="accent">✦</span>
-      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span>Bootstrap</span><span class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span class="accent">✦</span>
+      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span
+        class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span
+        class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span
+        class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span
+        class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span
+        class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span>Bootstrap</span><span
+        class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span
+        class="accent">✦</span>
+      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span
+        class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span
+        class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span
+        class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span
+        class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span
+        class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span class="accent">✦</span><span>Bootstrap</span><span
+        class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span
+        class="accent">✦</span>
     </div>
   </div>
 
@@ -1318,31 +1405,37 @@
         </em>
       </h2>
       <p class="reveal">
-        I'm Rajan Poudel, a BCA student at Lumbini ICT Campus who enjoys building thoughtful digital experiences. My work sits at the intersection of development and design — writing clean code while crafting interfaces that feel simple, intuitive, and human.
+        I'm Rajan Poudel, a BCA student at Lumbini ICT Campus who enjoys building
+        thoughtful digital experiences. My work sits at the intersection of
+        development and design — writing clean code while crafting interfaces
+        that feel simple, intuitive, and human.
       </p>
       <p class="reveal">
-        I believe good software starts with clear thinking. I usually design first, then build. This approach helps me focus on usability, structure, and performance rather than just writing code.
+        I believe good software starts with clear thinking. I usually design first,
+        then build. This approach helps me focus on usability, structure,
+        and performance rather than just writing code.
       </p>
       <p class="reveal">
-        When I'm not coding, you'll probably find me solving Sudoku, exploring new technologies, or refining my UI design skills.
+        When I'm not coding, you'll probably find me solving Sudoku,
+        exploring new technologies, or refining my UI design skills.
       </p>
     </div>
     <div>
       <div class="about-stats reveal">
         <div class="stat">
-          <div class="stat-num" data-target="27" data-suffix="+">0+</div>
+          <div class="stat-num" data-target="27" data-suffix="+">27+</div>
           <div class="stat-label">GitHub Repos</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-target="3" data-suffix="+">0+</div>
+          <div class="stat-num" data-target="3" data-suffix="+">3+</div>
           <div class="stat-label">Coding Platforms</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-target="8" data-suffix="+">0+</div>
+          <div class="stat-num" data-target="8" data-suffix="+">8+</div>
           <div class="stat-label">Languages</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-target="4" data-suffix="+">0+</div>
+          <div class="stat-num" data-target="4" data-suffix="+">4+</div>
           <div class="stat-label">Design Tools</div>
         </div>
       </div>
@@ -1366,7 +1459,6 @@
             <div class="skill-chip"><div class="skill-icon">💙</div><div class="skill-name">Flutter</div></div>
             <div class="skill-chip"><div class="skill-icon">🎯</div><div class="skill-name">Dart</div></div>
             <div class="skill-chip"><div class="skill-icon">🗄️</div><div class="skill-name">MySQL</div></div>
-            <!-- Duplicated Sequence for clean loop -->
             <div class="skill-chip"><div class="skill-icon">🌐</div><div class="skill-name">HTML5</div></div>
             <div class="skill-chip"><div class="skill-icon">🎨</div><div class="skill-name">CSS3</div></div>
             <div class="skill-chip"><div class="skill-icon">⚡</div><div class="skill-name">JavaScript</div></div>
@@ -1390,7 +1482,6 @@
             <div class="skill-chip"><div class="skill-icon">🐙</div><div class="skill-name">Git / GitHub</div></div>
             <div class="skill-chip"><div class="skill-icon">🧩</div><div class="skill-name">DSA</div></div>
             <div class="skill-chip"><div class="skill-icon">🗃️</div><div class="skill-name">SQL</div></div>
-            <!-- Duplicated Sequence for clean loop -->
             <div class="skill-chip"><div class="skill-icon">🅱️</div><div class="skill-name">Bootstrap</div></div>
             <div class="skill-chip"><div class="skill-icon">✏️</div><div class="skill-name">Figma</div></div>
             <div class="skill-chip"><div class="skill-icon">🖌️</div><div class="skill-name">Adobe XD</div></div>
@@ -1415,14 +1506,16 @@
         <div class="timeline-year">2080 B.S. &nbsp;·&nbsp; Present</div>
         <h3>Bachelor of Computer Applications (BCA)</h3>
         <div class="place">Lumbini ICT Campus · Nawalparasi, Nepal</div>
-        <p>Pursuing BCA with a focus on full-stack development, data structures, databases, and software engineering. Building real-world projects including RedTrack alongside coursework.</p>
+        <p>Pursuing BCA with a focus on full-stack development, data structures, databases, and software engineering.
+          Building real-world projects including RedTrack alongside coursework.</p>
       </div>
       <div class="timeline-item reveal reveal-delay-1">
         <div class="timeline-dot"></div>
         <div class="timeline-year">2078 – 2080 B.S.</div>
         <h3>Class 11 &amp; 12 — Management</h3>
         <div class="place">Gaindakot Namuna Secondary School · Nawalparasi, Nepal</div>
-        <p>Completed higher secondary education in the Management stream, building analytical thinking and problem-solving skills before transitioning into tech.</p>
+        <p>Completed higher secondary education in the Management stream, building analytical thinking and
+          problem-solving skills before transitioning into tech.</p>
       </div>
       <div class="timeline-item reveal reveal-delay-2">
         <div class="timeline-dot dim"></div>
@@ -1445,7 +1538,9 @@
             <span class="lang-label">PHP · MySQL · Bootstrap · Khalti · eSewa</span>
           </div>
           <h3>RedTrack — Blood Bank System</h3>
-          <p>Full-stack blood bank management system with admin panel, hospital portal, donor management, blood inventory tracking, and Nepalese payment gateway (Khalti/eSewa) integration. Features transport partner support for blood stock transfers.</p>
+          <p>Full-stack blood bank management system with admin panel, hospital portal, donor management, blood
+            inventory tracking, and Nepalese payment gateway (Khalti/eSewa) integration. Features transport partner
+            support for blood stock transfers.</p>
           <a href="https://github.com/rajan21045/RedTrack" target="_blank" class="project-link">View on GitHub →</a>
         </div>
         <div class="project-card reveal reveal-delay-1">
@@ -1454,7 +1549,8 @@
             <span class="lang-label">HTML · CSS</span>
           </div>
           <h3>Food Ordering System</h3>
-          <p>A responsive front-end food delivery UI with clean layout and intuitive user experience, built entirely with HTML &amp; CSS. Focuses on component design and visual hierarchy.</p>
+          <p>A responsive front-end food delivery UI with clean layout and intuitive user experience, built entirely
+            with HTML &amp; CSS. Focuses on component design and visual hierarchy.</p>
           <a href="https://github.com/rajan21045/Food-Ordering-System" target="_blank" class="project-link">View on GitHub →</a>
         </div>
         <div class="project-card reveal reveal-delay-2">
@@ -1463,8 +1559,10 @@
             <span class="lang-label">Java · MySQL · Swing</span>
           </div>
           <h3>Book Management App</h3>
-          <p>A desktop application built with Java Swing and MySQL. Features full CRUD operations for managing a book library with a clean, functional GUI interface.</p>
-          <a href="https://github.com/rajan21045/Java-Swing-Book-Management-Application" target="_blank" class="project-link">View on GitHub →</a>
+          <p>A desktop application built with Java Swing and MySQL. Features full CRUD operations for managing a book
+            library with a clean, functional GUI interface.</p>
+          <a href="https://github.com/rajan21045/Java-Swing-Book-Management-Application" target="_blank"
+            class="project-link">View on GitHub →</a>
         </div>
       </div>
     </div>
@@ -1500,7 +1598,8 @@
       <div>
         <p class="section-label reveal">// Contact</p>
         <h2 class="reveal">Let's<br><em>build</em><br>together.</h2>
-        <p class="reveal">Open to collaborations, freelance projects, and new opportunities. Reach out on any platform — I respond promptly.</p>
+        <p class="reveal">Open to collaborations, freelance projects, and new opportunities. Reach out on any platform —
+          I respond promptly.</p>
       </div>
       <div>
         <div class="social-links reveal">
@@ -1545,60 +1644,73 @@
   </section>
 
   <footer>
-    <span>&copy; <span id="year">2026</span> Rajan Poudel</span>
+    <span>© <span id="year"></span> Rajan Poudel</span>
     <span>Built with HTML · CSS · JS &nbsp;·&nbsp; <a href="https://github.com/rajan21045" target="_blank">@rajan21045</a></span>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ── LOADER AND INITIALIZATION ──
-    window.addEventListener('load', () => {
-      const loader = document.getElementById('loader');
-      loader.classList.add('hidden');
+    // ── THEME SWITCHER persistence LOGIC ──
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateToggleUI(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       
-      // Reveal hero elements sequentially
-      document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), 100 + i * 120);
-      });
-      
-      // Run initial scramble animations
-      setTimeout(() => {
-        document.querySelectorAll('.hero .scramble').forEach(el => scramble(el));
-      }, 150);
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('portfolio-theme', newTheme);
+      updateToggleUI(newTheme);
     });
 
-    // ── CUSTOM CURSOR MECHANICS ──
+    function updateToggleUI(theme) {
+      if (theme === 'light') {
+        themeIcon.textContent = '☾';
+        themeText.textContent = 'Dark';
+      } else {
+        themeIcon.textContent = '☀';
+        themeText.textContent = 'Light';
+      }
+    }
+
+    // ── LOADER ──
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+        document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+          setTimeout(() => el.classList.add('visible'), 100 + i * 120);
+        });
+        setTimeout(() => {
+          document.querySelectorAll('.hero .scramble').forEach(el => scramble(el));
+        }, 150);
+      }, 1000);
+    });
+
+    // ── CUSTOM CURSOR ──
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
-    
-    // Track cursor location natively with requestAnimationFrame for performance
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
     document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      setTimeout(() => {
+        ring.style.left = e.clientX + 'px';
+        ring.style.top = e.clientY + 'px';
+      }, 60);
     });
-
-    function tickRing() {
-      // Linear interpolation smoothing for the ring tracker
-      ringX += (mouseX - ringX) * 0.25;
-      ringY += (mouseY - ringY) * 0.25;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(tickRing);
-    }
-    requestAnimationFrame(tickRing);
 
     // ── HAMBURGER MENU ──
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
 
     hamburger.addEventListener('click', () => {
-      mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+      const isOpen = mobileMenu.classList.contains('open');
+      isOpen ? closeMenu() : openMenu();
     });
 
     function openMenu() {
@@ -1617,24 +1729,21 @@
       if (e.key === 'Escape') closeMenu();
     });
 
-    // ── SCROLL REVEAL (MEM-LEAK SAFE) ──
-    const observer = new IntersectionObserver((entries, observerInstance) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          
-          if (entry.target.classList.contains('about-stats')) {
+    // ── SCROLL REVEAL ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          if (e.target.classList.contains('about-stats')) {
             setTimeout(() => animateStats(), 200);
           }
-          // Stop observing target once visible to save browser processes
-          observerInstance.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
-    
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
 
-    // ── TEXT SCRAMBLE FUNCTION ──
+    // ── SCRAMBLE TEXT ──
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%';
     const DIGITS = '0123456789';
 
@@ -1642,26 +1751,23 @@
       const original = el.dataset.text;
       if (!original) return;
       let frame = 0;
-      const totalFrames = original.length * 3;
+      const totalFrames = original.length * 4;
       const interval = setInterval(() => {
         el.textContent = original.split('').map((ch, i) => {
           if (ch === ' ') return ' ';
-          if (i < Math.floor(frame / 3)) return ch;
+          if (i < Math.floor(frame / 4)) return ch;
           return CHARS[Math.floor(Math.random() * CHARS.length)];
         }).join('');
         frame++;
-        if (frame > totalFrames) { 
-          el.textContent = original; 
-          clearInterval(interval); 
-        }
-      }, 30);
+        if (frame > totalFrames) { el.textContent = original; clearInterval(interval); }
+      }, 35);
     }
 
     document.querySelectorAll('.scramble').forEach(el => {
       el.addEventListener('mouseenter', () => scramble(el));
     });
 
-    // ── STATS COUNT-UP ANIMATION ──
+    // ── STAT NUMBER SCRAMBLE ──
     let statsAnimated = false;
 
     function animateStats() {
@@ -1669,10 +1775,10 @@
       statsAnimated = true;
 
       document.querySelectorAll('.stat-num[data-target]').forEach(el => {
-        const target = parseInt(el.dataset.target, 10);
+        const target = parseInt(el.dataset.target);
         const suffix = el.dataset.suffix || '';
-        const duration = 1000;
-        const fps = 60;
+        const duration = 900;
+        const fps = 40;
         const totalFrames = Math.round(duration / (1000 / fps));
         let frame = 0;
 
@@ -1697,4 +1803,5 @@
     }
   </script>
 </body>
+
 </html>
