@@ -5,6 +5,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rajan Poudel — Developer & UI/UX Designer</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Rajan Poudel is a BCA student and full-stack developer / UI-UX designer based in Nawalparasi, Nepal, building projects like RedTrack and WhisperWall." />
+  <meta name="author" content="Rajan Poudel" />
+  <link rel="canonical" href="https://rajanpoudel.info.np/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Rajan Poudel — Developer & UI/UX Designer" />
+  <meta property="og:description" content="BCA student, full-stack developer, and UI/UX designer from Nawalparasi, Nepal. Explore projects, skills, and coding profiles." />
+  <meta property="og:url" content="https://rajanpoudel.info.np/" />
+  <meta property="og:image" content="https://rajanpoudel.info.np/rp-logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rajan Poudel — Developer & UI/UX Designer" />
+  <meta name="twitter:description" content="BCA student, full-stack developer, and UI/UX designer from Nawalparasi, Nepal." />
+  <meta name="twitter:image" content="https://rajanpoudel.info.np/rp-logo.png" />
+
   <link rel="icon" type="image/png" href="rp-logo.png" sizes="32x32">
   <link rel="apple-touch-icon" href="rp-logo.png" sizes="180x180">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +31,29 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap"
     rel="stylesheet">
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rajan Poudel",
+    "url": "https://rajanpoudel.info.np/",
+    "jobTitle": "Developer & UI/UX Designer",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nawalparasi",
+      "addressCountry": "NP"
+    },
+    "sameAs": [
+      "https://github.com/rajan21045",
+      "https://www.linkedin.com/in/iamrajanpoudel/",
+      "https://x.com/rajan_4421",
+      "https://www.instagram.com/rajan_21045/"
+    ]
+  }
+  </script>
+
   <style>
     *,
     *::before,
@@ -59,8 +101,36 @@
       color: var(--text);
       font-family: 'DM Mono', monospace;
       overflow-x: hidden;
-      cursor: none;
       transition: background 0.3s, color 0.3s;
+    }
+
+    /* ── SKIP LINK (accessibility) ── */
+    .skip-link {
+      position: fixed;
+      top: -60px;
+      left: 12px;
+      z-index: 10001;
+      background: var(--red);
+      color: #fff;
+      padding: .75rem 1.2rem;
+      font-size: .75rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: top .2s ease;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    /* ── FOCUS VISIBILITY (accessibility) ── */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
+      border-radius: 4px;
     }
 
     /* ── GRAIN OVERLAY ── */
@@ -76,7 +146,37 @@
       mix-blend-mode: overlay;
     }
 
+    /* Custom cursor only for precise pointers (mouse/trackpad) so touch/keyboard users keep native cursor + focus */
+    @media (pointer: fine) {
+      body {
+        cursor: none;
+      }
+
+      .cursor {
+        display: block;
+      }
+
+      .cursor-ring {
+        display: block;
+      }
+
+      body:has(a:hover) .cursor,
+      body:has(button:hover) .cursor {
+        width: 18px;
+        height: 18px;
+        background: var(--amber);
+      }
+
+      body:has(a:hover) .cursor-ring,
+      body:has(button:hover) .cursor-ring {
+        width: 54px;
+        height: 54px;
+        border-color: rgba(244, 162, 97, .5);
+      }
+    }
+
     .cursor {
+      display: none;
       position: fixed;
       width: 10px;
       height: 10px;
@@ -90,6 +190,7 @@
     }
 
     .cursor-ring {
+      display: none;
       position: fixed;
       width: 36px;
       height: 36px;
@@ -99,20 +200,6 @@
       z-index: 9998;
       transform: translate(-50%, -50%);
       transition: all .18s ease;
-    }
-
-    body:has(a:hover) .cursor,
-    body:has(button:hover) .cursor {
-      width: 18px;
-      height: 18px;
-      background: var(--amber);
-    }
-
-    body:has(a:hover) .cursor-ring,
-    body:has(button:hover) .cursor-ring {
-      width: 54px;
-      height: 54px;
-      border-color: rgba(244, 162, 97, .5);
     }
 
     /* ── LOADER ── */
@@ -283,7 +370,7 @@
 
     /* Active Highlight States */
     .nav-links a.active {
-      color: #white;
+      color: white;
       background: rgba(230, 57, 70, .18);
       font-weight: 600;
     }
@@ -740,6 +827,7 @@
       gap: 3rem;
       white-space: nowrap;
       animation: ticker 30s linear infinite;
+      width: max-content;
     }
 
     .ticker span {
@@ -866,6 +954,7 @@
       display: flex;
       gap: 1px;
       flex-shrink: 0;
+      width: max-content;
       animation: marquee-fwd 28s linear infinite;
     }
     .marquee-row.rev .marquee-track {
@@ -1274,6 +1363,19 @@
     .reveal-delay-2 { transition-delay: .2s; }
     .reveal-delay-3 { transition-delay: .3s; }
 
+    /* Respect reduced-motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      .ticker, .marquee-track, .location-dot, .hero-photo-frame::before {
+        animation: none !important;
+      }
+    }
+
     /* ── SCRAMBLE ── */
     .scramble { display: inline; }
 
@@ -1343,6 +1445,8 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
   <div id="loader">
     <div class="loader-inner">
       <div class="loader-bar"></div>
@@ -1368,8 +1472,8 @@
   </div>
 
   <nav id="navbar">
-    <a href="#" class="nav-logo">
-      <img src="rp-logo.png" alt="RP Logo">
+    <a href="#" class="nav-logo" aria-label="Rajan Poudel — home">
+      <img src="rp-logo.png" alt="Rajan Poudel logo">
     </a>
     <ul class="nav-links">
       <li><a href="#about"><span class="nav-num">01</span>About</a></li>
@@ -1382,13 +1486,15 @@
     <div class="nav-right-wrap">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle interface theme">☀</button>
       <a href="mailto:raajan.works@gmail.com" class="nav-hire">Work Together →</a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
         <span></span>
         <span></span>
         <span></span>
       </button>
     </div>
   </nav>
+
+  <main id="main-content">
 
   <section>
     <div class="hero">
@@ -1401,8 +1507,14 @@
           right. Currently deep in systems, logic, and the gap between the two.</p>
         <div class="hero-actions reveal reveal-delay-3">
           <a href="#projects" class="btn btn-primary">View Projects →</a>
-          <a href="https://github.com/rajan21045" target="_blank" class="btn btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+              <path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Resume
+          </a>
+          <a href="https://github.com/rajan21045" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
               <path
                 d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
             </svg>
@@ -1414,7 +1526,7 @@
         <div class="hero-photo-deco"></div>
         <div class="hero-photo-deco2"></div>
         <div class="hero-photo-frame">
-          <img src="photo.JPG" alt="Rajan Poudel">
+          <img src="photo.JPG" alt="Portrait of Rajan Poudel" width="600" height="800">
           <div class="hero-photo-label">
             <div class="name-tag">Rajan Poudel</div>
             <div class="role-tag">Dev · Designer · Nepal</div>
@@ -1426,21 +1538,13 @@
   </section>
 
   <div class="ticker-wrap">
-    <div class="ticker">
+    <div class="ticker" id="ticker" aria-hidden="true">
       <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span
         class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span
         class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span
         class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span
         class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span
         class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span>Bootstrap</span><span
-        class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span
-        class="accent">✦</span>
-      <span>PHP</span><span class="accent">✦</span><span>MySQL</span><span
-        class="accent">✦</span><span>HTML/CSS</span><span class="accent">✦</span><span>JavaScript</span><span
-        class="accent">✦</span><span>Java</span><span class="accent">✦</span><span>Python</span><span
-        class="accent">✦</span><span>C</span><span class="accent">✦</span><span>Flutter</span><span
-        class="accent">✦</span><span>Dart</span><span class="accent">✦</span><span>Figma</span><span
-        class="accent">✦</span><span>UI/UX Design</span><span class="accent">✦</span><span class="accent">✦</span><span>Bootstrap</span><span
         class="accent">✦</span><span>DSA</span><span class="accent">✦</span><span>SQL</span><span
         class="accent">✦</span>
     </div>
@@ -1500,17 +1604,7 @@
       <h2 class="reveal">Tools &amp; Technologies</h2>
       <div class="skills-grid reveal">
         <div class="marquee-row">
-          <div class="marquee-track">
-            <div class="skill-chip"><div class="skill-icon">🌐</div><div class="skill-name">HTML5</div></div>
-            <div class="skill-chip"><div class="skill-icon">🎨</div><div class="skill-name">CSS3</div></div>
-            <div class="skill-chip"><div class="skill-icon">⚡</div><div class="skill-name">JavaScript</div></div>
-            <div class="skill-chip"><div class="skill-icon">🐘</div><div class="skill-name">PHP</div></div>
-            <div class="skill-chip"><div class="skill-icon">☕</div><div class="skill-name">Java</div></div>
-            <div class="skill-chip"><div class="skill-icon">🐍</div><div class="skill-name">Python</div></div>
-            <div class="skill-chip"><div class="skill-icon">⚙️</div><div class="skill-name">C</div></div>
-            <div class="skill-chip"><div class="skill-icon">💙</div><div class="skill-name">Flutter</div></div>
-            <div class="skill-chip"><div class="skill-icon">🎯</div><div class="skill-name">Dart</div></div>
-            <div class="skill-chip"><div class="skill-icon">🗄️</div><div class="skill-name">MySQL</div></div>
+          <div class="marquee-track" id="marqueeRow1" aria-hidden="true">
             <div class="skill-chip"><div class="skill-icon">🌐</div><div class="skill-name">HTML5</div></div>
             <div class="skill-chip"><div class="skill-icon">🎨</div><div class="skill-name">CSS3</div></div>
             <div class="skill-chip"><div class="skill-icon">⚡</div><div class="skill-name">JavaScript</div></div>
@@ -1524,16 +1618,7 @@
           </div>
         </div>
         <div class="marquee-row rev">
-          <div class="marquee-track">
-            <div class="skill-chip"><div class="skill-icon">🅱️</div><div class="skill-name">Bootstrap</div></div>
-            <div class="skill-chip"><div class="skill-icon">✏️</div><div class="skill-name">Figma</div></div>
-            <div class="skill-chip"><div class="skill-icon">🖌️</div><div class="skill-name">Adobe XD</div></div>
-            <div class="skill-chip"><div class="skill-icon">📷</div><div class="skill-name">Photoshop</div></div>
-            <div class="skill-chip"><div class="skill-icon">🎭</div><div class="skill-name">Canva</div></div>
-            <div class="skill-chip"><div class="skill-icon">🔷</div><div class="skill-name">Affinity</div></div>
-            <div class="skill-chip"><div class="skill-icon">🐙</div><div class="skill-name">Git / GitHub</div></div>
-            <div class="skill-chip"><div class="skill-icon">🧩</div><div class="skill-name">DSA</div></div>
-            <div class="skill-chip"><div class="skill-icon">🗃️</div><div class="skill-name">SQL</div></div>
+          <div class="marquee-track" id="marqueeRow2" aria-hidden="true">
             <div class="skill-chip"><div class="skill-icon">🅱️</div><div class="skill-name">Bootstrap</div></div>
             <div class="skill-chip"><div class="skill-icon">✏️</div><div class="skill-name">Figma</div></div>
             <div class="skill-chip"><div class="skill-icon">🖌️</div><div class="skill-name">Adobe XD</div></div>
@@ -1593,9 +1678,19 @@
           <p>Full-stack blood bank management system with admin panel, hospital portal, donor management, blood
             inventory tracking, and Nepalese payment gateway (Khalti/eSewa) integration. Features transport partner
             support for blood stock transfers.</p>
-          <a href="https://github.com/rajan21045/RedTrack" target="_blank" class="project-link">View on GitHub →</a>
+          <a href="https://github.com/rajan21045/RedTrack" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
         </div>
         <div class="project-card reveal reveal-delay-1">
+          <div class="project-langs">
+            <span class="lang-dot" style="background:#a78bfa"></span>
+            <span class="lang-label">PHP · MySQL · Security-hardened</span>
+          </div>
+          <h3>WhisperWall — Anonymous Confessions</h3>
+          <p>An anonymous confession platform built from scratch with CSRF protection, prepared statements,
+            session-based de-duplication, and POST-based voting to keep interactions safe and abuse-resistant.</p>
+          <a href="https://github.com/rajan21045" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
+        </div>
+        <div class="project-card reveal reveal-delay-2">
           <div class="project-langs">
             <span class="lang-dot" style="background:#F97316"></span>
             <span class="lang-label">HTML · CSS</span>
@@ -1603,9 +1698,9 @@
           <h3>Food Ordering System</h3>
           <p>A responsive front-end food delivery UI with clean layout and intuitive user experience, built entirely
             with HTML &amp; CSS. Focuses on component design and visual hierarchy.</p>
-          <a href="https://github.com/rajan21045/Food-Ordering-System" target="_blank" class="project-link">View on GitHub →</a>
+          <a href="https://github.com/rajan21045/Food-Ordering-System" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
         </div>
-        <div class="project-card reveal reveal-delay-2">
+        <div class="project-card reveal reveal-delay-3">
           <div class="project-langs">
             <span class="lang-dot" style="background:#ED8936"></span>
             <span class="lang-label">Java · MySQL · Swing</span>
@@ -1613,7 +1708,7 @@
           <h3>Book Management App</h3>
           <p>A desktop application built with Java Swing and MySQL. Features full CRUD operations for managing a book
             library with a clean, functional GUI interface.</p>
-          <a href="https://github.com/rajan21045/Java-Swing-Book-Management-Application" target="_blank"
+          <a href="https://github.com/rajan21045/Java-Swing-Book-Management-Application" target="_blank" rel="noopener noreferrer"
             class="project-link">View on GitHub →</a>
         </div>
       </div>
@@ -1625,22 +1720,22 @@
     <h2 class="reveal">Coding Profiles</h2>
     <div class="coding-grid reveal">
       <div class="coding-card">
-        <div class="coding-icon">👾</div>
+        <div class="coding-icon" aria-hidden="true">👾</div>
         <div class="coding-platform">GeeksforGeeks</div>
         <div class="coding-handle">@rajan_21045</div>
-        <a href="https://www.geeksforgeeks.org/user/rajan_21045/" target="_blank" class="coding-link">Visit Profile →</a>
+        <a href="https://www.geeksforgeeks.org/user/rajan_21045/" target="_blank" rel="noopener noreferrer" class="coding-link">Visit Profile →</a>
       </div>
       <div class="coding-card">
-        <div class="coding-icon">🏆</div>
+        <div class="coding-icon" aria-hidden="true">🏆</div>
         <div class="coding-platform">HackerRank</div>
         <div class="coding-handle">@raajan_works</div>
-        <a href="https://www.hackerrank.com/raajan_works" target="_blank" class="coding-link">Visit Profile →</a>
+        <a href="https://www.hackerrank.com/raajan_works" target="_blank" rel="noopener noreferrer" class="coding-link">Visit Profile →</a>
       </div>
       <div class="coding-card">
-        <div class="coding-icon">🔥</div>
+        <div class="coding-icon" aria-hidden="true">🔥</div>
         <div class="coding-platform">LeetCode</div>
         <div class="coding-handle">@rajan21045</div>
-        <a href="https://leetcode.com/u/rajan21045/" target="_blank" class="coding-link">Visit Profile →</a>
+        <a href="https://leetcode.com/u/rajan21045/" target="_blank" rel="noopener noreferrer" class="coding-link">Visit Profile →</a>
       </div>
     </div>
   </section>
@@ -1660,48 +1755,59 @@
               <div class="social-name">Email</div>
               <div class="social-handle">raajan.works@gmail.com</div>
             </div>
-            <span class="social-arrow">↗</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
           </a>
-          <a href="https://www.linkedin.com/in/iamrajanpoudel/" target="_blank" class="social-item">
+          <a href="https://www.linkedin.com/in/iamrajanpoudel/" target="_blank" rel="noopener noreferrer" class="social-item">
             <div>
               <div class="social-name">LinkedIn</div>
               <div class="social-handle">iamrajanpoudel</div>
             </div>
-            <span class="social-arrow">↗</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
           </a>
-          <a href="https://github.com/rajan21045" target="_blank" class="social-item">
+          <a href="https://github.com/rajan21045" target="_blank" rel="noopener noreferrer" class="social-item">
             <div>
               <div class="social-name">GitHub</div>
               <div class="social-handle">rajan21045</div>
             </div>
-            <span class="social-arrow">↗</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
           </a>
-          <a href="https://x.com/rajan_4421" target="_blank" class="social-item">
+          <a href="https://x.com/rajan_4421" target="_blank" rel="noopener noreferrer" class="social-item">
             <div>
               <div class="social-name">X (Twitter)</div>
               <div class="social-handle">@rajan_4421</div>
             </div>
-            <span class="social-arrow">↗</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
           </a>
-          <a href="https://www.instagram.com/rajan_21045/" target="_blank" class="social-item">
+          <a href="https://www.instagram.com/rajan_21045/" target="_blank" rel="noopener noreferrer" class="social-item">
             <div>
               <div class="social-name">Instagram</div>
               <div class="social-handle">@rajan_21045</div>
             </div>
-            <span class="social-arrow">↗</span>
+            <span class="social-arrow" aria-hidden="true">↗</span>
           </a>
         </div>
       </div>
     </div>
   </section>
 
+  </main>
+
   <footer>
     <span>© <span id="year"></span> Rajan Poudel</span>
-    <span>Built with HTML · CSS · JS &nbsp;·&nbsp; <a href="https://github.com/rajan21045" target="_blank">@rajan21045</a></span>
+    <span>Built with HTML · CSS · JS &nbsp;·&nbsp; <a href="https://github.com/rajan21045" target="_blank" rel="noopener noreferrer">@rajan21045</a></span>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── DUPLICATE TICKER / MARQUEE CONTENT FOR SEAMLESS LOOP (built once in JS instead of hand-duplicated HTML) ──
+    function duplicateForLoop(id) {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML += el.innerHTML;
+    }
+    duplicateForLoop('ticker');
+    duplicateForLoop('marqueeRow1');
+    duplicateForLoop('marqueeRow2');
 
     // ── LOADER ──
     window.addEventListener('load', () => {
@@ -1716,17 +1822,29 @@
       }, 1000);
     });
 
-    // ── CUSTOM CURSOR ──
+    // ── CUSTOM CURSOR (mouse/trackpad only) ──
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      setTimeout(() => {
-        ring.style.left = e.clientX + 'px';
-        ring.style.top = e.clientY + 'px';
-      }, 60);
-    });
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+    if (finePointer) {
+      let rafId = null;
+      let lastX = 0, lastY = 0;
+
+      document.addEventListener('mousemove', e => {
+        lastX = e.clientX;
+        lastY = e.clientY;
+        cursor.style.left = lastX + 'px';
+        cursor.style.top = lastY + 'px';
+        if (!rafId) {
+          rafId = requestAnimationFrame(() => {
+            ring.style.left = lastX + 'px';
+            ring.style.top = lastY + 'px';
+            rafId = null;
+          });
+        }
+      });
+    }
 
     // ── SHRINK NAVBAR ON SCROLL ──
     const navbar = document.getElementById('navbar');
@@ -1738,15 +1856,21 @@
       }
     });
 
-    // ── LIGHT / DARK THEME TOGGLE ──
+    // ── LIGHT / DARK THEME TOGGLE (persisted) ──
     const themeToggle = document.getElementById('themeToggle');
+
+    function applyTheme(isLight) {
+      document.body.classList.toggle('light-theme', isLight);
+      themeToggle.textContent = isLight ? '🌙' : '☀';
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') applyTheme(true);
+
     themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-theme');
-      if (document.body.classList.contains('light-theme')) {
-        themeToggle.textContent = '🌙';
-      } else {
-        themeToggle.textContent = '☀';
-      }
+      const isLight = !document.body.classList.contains('light-theme');
+      applyTheme(isLight);
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 
     // ── HAMBURGER MENU & DRAWER SLIDE ──
@@ -1763,6 +1887,7 @@
       mobileMenu.classList.add('open');
       menuOverlay.classList.add('open');
       hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
 
@@ -1770,6 +1895,7 @@
       mobileMenu.classList.remove('open');
       menuOverlay.classList.remove('open');
       hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
 
@@ -1778,7 +1904,7 @@
     });
 
     // ── ACTIVE NAVIGATION HIGHLIGHT (IntersectionObserver) ──
-    const sections = document.querySelectorAll('section, [id]');
+    const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a, .mobile-nav-link');
 
     const activeObserverOptions = {
@@ -1792,7 +1918,7 @@
         if (entry.isIntersecting) {
           const id = entry.target.getAttribute('id');
           if (!id) return;
-          
+
           navLinks.forEach(link => {
             if (link.getAttribute('href') === `#${id}`) {
               link.classList.add('active');
@@ -1804,11 +1930,7 @@
       });
     }, activeObserverOptions);
 
-    sections.forEach(section => {
-      if (section.getAttribute('id')) {
-        activeObserver.observe(section);
-      }
-    });
+    sections.forEach(section => activeObserver.observe(section));
 
     // ── SCROLL REVEAL ──
     const reveals = document.querySelectorAll('.reveal');
