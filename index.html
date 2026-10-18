@@ -1179,6 +1179,122 @@
 
     .project-link:hover { gap: .7rem; }
 
+      .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+        /* ── PROJECT CARD LAYOUT ── */
+    .project-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card > .project-link {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    /* Featured card (full width) */
+    .project-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 3rem;
+      padding: 2.5rem;
+      border-color: var(--red-dim);
+      background:
+        radial-gradient(circle at top right, rgba(230, 57, 70, .09), transparent 55%),
+        var(--card);
+    }
+
+    .featured-main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card.featured h3 {
+      font-size: 1.7rem;
+      line-height: 1.15;
+    }
+
+    .project-card.featured p {
+      font-size: .86rem;
+    }
+
+    .project-badge {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .62rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #4ade80;
+      border: 1px solid rgba(74, 222, 128, .35);
+      background: rgba(74, 222, 128, .08);
+      padding: .3rem .65rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      align-self: center;
+    }
+
+    .feature-list li {
+      background: var(--surface);
+      padding: 1.1rem 1.3rem;
+      display: flex;
+      gap: 1rem;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .feature-list li > span {
+      color: var(--red);
+      font-size: .65rem;
+      letter-spacing: .1em;
+      padding-top: .25rem;
+    }
+
+    .feature-list strong {
+      display: block;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .92rem;
+      margin-bottom: .15rem;
+    }
+
+    @media (max-width: 1000px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-card.featured { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+    }
+    
     .coding-section {
       padding: 7rem 3rem;
       max-width: 1200px;
@@ -1672,21 +1788,27 @@
       <h2 class="reveal">Things I've Built</h2>
 
       <div class="projects-grid">
-        <div class="project-card reveal">
-          <div class="project-langs">
-            <span class="lang-dot" style="background:#3178c6"></span>
-            <span class="lang-label">TypeScript · VS Code Extension API · Node.js</span>
+          <div class="project-card featured reveal">
+          <div class="featured-main">
+            <span class="project-badge">Live on VS Code Marketplace</span>
+            <div class="project-langs">
+              <span class="lang-dot" style="background:#3178c6"></span>
+              <span class="lang-label">TypeScript · VS Code Extension API · Node.js</span>
+            </div>
+            <h3>Docster — VS Code Documentation Extension</h3>
+            <p>A rule-based VS Code extension that helps developers write and maintain documentation without
+              leaving the editor, using templates and static analysis for JavaScript and TypeScript.</p>
+            <div class="project-actions">
+              <a href="https://marketplace.visualstudio.com/items?itemName=RajanPoudel.Docster" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Install Extension →</a>
+              <a href="https://github.com/rajan21045/Docster" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View on GitHub</a>
+            </div>
           </div>
-          <h3>Docster — VS Code Documentation Extension</h3>
-          <p>A VS Code extension, published on the Marketplace, that helps developers write and maintain documentation
-            without leaving the editor. Adds doc comments with a single command, warns about functions missing comments
-            with a one-click quick fix, and generates project documentation to a Markdown file. Uses a rule-based engine
-            (templates and static analysis) for JavaScript and TypeScript.</p>
-          <a href="https://marketplace.visualstudio.com/items?itemName=RajanPoudel.Docster" target="_blank" rel="noopener noreferrer" class="project-link">Install from Marketplace →</a>
-          <br><br>
-          <a href="https://github.com/rajan21045/Docster" target="_blank" rel="noopener noreferrer" class="project-link">View on GitHub →</a>
+          <ul class="feature-list">
+            <li><span>01</span><div><strong>Add Doc Comment</strong>Insert a doc comment for a function with a single command.</div></li>
+            <li><span>02</span><div><strong>Missing-comment warnings</strong>Flags undocumented functions and offers a one-click quick fix.</div></li>
+            <li><span>03</span><div><strong>Generate Documentation</strong>Exports project documentation to a Markdown file.</div></li>
+          </ul>
         </div>
-
         <div class="project-card reveal reveal-delay-1">
           <div class="project-langs">
             <span class="lang-dot" style="background:#e63946"></span>
